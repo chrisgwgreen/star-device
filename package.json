@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "firebase": "^8.9.1",
     "rpi-ws281x-native": "^1.0.3"
   }
 }

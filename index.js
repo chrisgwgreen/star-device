@@ -1,11 +1,8 @@
-
 const ws281x = require('rpi-ws281x-native');
 
-const firebase = require("firebase/app");
-
-require("firebase/auth");
-require("firebase/firestore");
-
+// const firebase = require("firebase/app");
+// require("firebase/auth");
+// require("firebase/firestore");
 
 const options = {
   // dma: 10,
@@ -26,5 +23,5 @@ for (let i = 0; i < channel.count; i++) {
 
 ws281x.render();
 
-console.log('DEVICE', firebase)
+console.log('DEVICE')
 
