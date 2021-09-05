@@ -4,7 +4,7 @@ const fs = require('fs');
 class Walk {
   constructor () {
     this.config = {
-      leds: 50,
+      leds: 150,
       dma: 10,
       brightness: 100,
       gpio: 18,
@@ -33,6 +33,10 @@ class Walk {
 
 const walk = new Walk()
 walk.run()
+
+
+
+
 
 
 
