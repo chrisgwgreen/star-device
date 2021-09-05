@@ -4,7 +4,7 @@ const fs = require('fs');
 class Walk {
   constructor () {
     this.config = {
-      leds: 150,
+      leds: 50,
       dma: 10,
       brightness: 100,
       gpio: 18,
@@ -27,7 +27,7 @@ class Walk {
   }
 
   run () {
-    setInterval(this.loop.bind(this), 100)
+    setInterval(this.loop.bind(this), 10)
   }
 }
 
