@@ -1,4 +1,7 @@
 const ws281x = require('rpi-ws281x')
+import {
+  PiStats
+} from './stats'
 
 class Walk {
   constructor () {
@@ -32,3 +35,5 @@ class Walk {
 
 const walk = new Walk()
 walk.run()
+
+console.log(PiStats)
