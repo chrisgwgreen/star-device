@@ -27,7 +27,7 @@ class Walk {
   }
 
   run () {
-    setInterval(this.loop.bind(this), 10)
+    setInterval(this.loop.bind(this), 50)
   }
 }
 
