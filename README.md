@@ -15,4 +15,6 @@ pwd - `usual password`
 
 ### Pin Out
 
+GPIO18
+
 https://i.stack.imgur.com/yHddo.png

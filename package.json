@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "rpi-ws281x-native": "^1.0.3"
+    "rpi-ws281x": "^1.0.36"
   }
 }
