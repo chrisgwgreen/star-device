@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^10.0.0",
+    "firebase": "^9.0.1",
     "rpi-ws281x": "^1.0.36"
   }
 }

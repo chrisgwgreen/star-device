@@ -1,39 +1,15 @@
-const ws281x = require('rpi-ws281x')
+// A very simple nodeJS script that demonstrates how you can access
+// memory usage information similar to how free -m works on the
+// Raspberry Pi. Goes with µCast #14. http://youtu.be/EqyVlTP4R5M
+
+// Usage: node pi_mem.js
+// Example Output
+//
+// total    used    free    cached
+// 469      65      404     31
+// Memory Usage:    7%
+
 const fs = require('fs')
-
-class Walk {
-  constructor() {
-    this.config = {
-      leds: 150,
-      dma: 10,
-      brightness: 255,
-      gpio: 18,
-      stripType: 'rgb'
-    }
-
-    this.offset = 0
-
-    ws281x.configure(this.config)
-  }
-
-  loop() {
-    const pixels = new Uint32Array(this.config.leds)
-
-    pixels[this.offset] = 0xffffff
-    pixels[150 - this.offset] = 0xffffff
-
-    this.offset = (this.offset + 1) % this.config.leds
-
-    ws281x.render(pixels)
-  }
-
-  run() {
-    setInterval(this.loop.bind(this), 50)
-  }
-}
-
-const walk = new Walk()
-walk.run()
 
 var PiStats = (function () {
   var memInfo = {}
@@ -119,6 +95,11 @@ var PiStats = (function () {
   }
 })()
 
-PiStats.printMemoryInfo()
-console.log('')
-setInterval(PiStats.printCPUInfo, 1000)
+const runStats = () => {
+  PiStats.printMemoryInfo()
+  setInterval(PiStats.printCPUInfo, 1000)
+}
+
+module.exports = {
+  runStats
+}
