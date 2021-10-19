@@ -1,0 +1,12 @@
+- twinkle
+- flash
+- blink 
+- blink speed
+
+- Seperate startTime and animation point
+- offset animation (and update based on init)
+- use object instead of an array?
+
+
+
+!- fade in/out cant be done
