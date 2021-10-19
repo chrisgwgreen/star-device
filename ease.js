@@ -6,53 +6,30 @@ const ws281x = require('rpi-ws281x')
  * Easing
  */
 const easing = {
-  linear: (t) => t,
-  easeInQuad: (t) => Math.pow(t, 2),
-  easeOutQuad: (t) => 1 - easeInQuad(1 - t),
-  easeInOutQuad: (t) =>
-    t < 0.5 ? easeInQuad(t * 2) / 2 : easeOutQuad(t * 2 - 1) / 2 + 0.5,
-  easeInCubic: (t) => Math.pow(t, 3),
-  easeOutCubic: (t) => 1 - easeInCubic(1 - t),
-  easeInOutCubic: (t) =>
-    t < 0.5 ? easeInCubic(t * 2) / 2 : easeOutCubic(t * 2 - 1) / 2 + 0.5,
-  easeInQuart: (t) => Math.pow(t, 4),
-  easeOutQuart: (t) => 1 - easeInQuart(1 - t),
-  easeInOutQuart: (t) =>
-    t < 0.5 ? easeInQuart(t * 2) / 2 : easeOutQuart(t * 2 - 1) / 2 + 0.5,
-  easeInQuint: (t) => Math.pow(t, 5),
-  easeOutQuint: (t) => 1 - easeInQuint(1 - t),
-  easeInOutQuint: (t) =>
-    t < 0.5 ? easeInQuint(t * 2) / 2 : easeOutQuint(t * 2 - 1) / 2 + 0.5,
-  easeInSine: (t) => 1 + Math.sin((Math.PI / 2) * t - Math.PI / 2),
-  easeOutSine: (t) => Math.sin((Math.PI / 2) * t),
-  easeInOutSine: (t) => (1 + Math.sin(Math.PI * t - Math.PI / 2)) / 2,
-  easeInOutCirc: (t) =>
-    t < 0.5
-      ? (1 - Math.sqrt(1 - Math.pow(2 * t, 2))) / 2
-      : (Math.sqrt(1 - Math.pow(-2 * t + 2, 2)) + 1) / 2,
-  easeOutBounce: (t) => {
-    const n1 = 7.5625;
-    const d1 = 2.75;
+  linear: t => t,
+  easeOutBounce: t => {
+    const n1 = 7.5625
+    const d1 = 2.75
 
     if (t < 1 / d1) {
-      return n1 * t * t;
+      return n1 * t * t
     } else if (t < 2 / d1) {
-      return n1 * (t -= 1.5 / d1) * t + 0.75;
+      return n1 * (t -= 1.5 / d1) * t + 0.75
     } else if (t < 2.5 / d1) {
-      return n1 * (t -= 2.25 / d1) * t + 0.9375;
+      return n1 * (t -= 2.25 / d1) * t + 0.9375
     } else {
-      return n1 * (t -= 2.625 / d1) * t + 0.984375;
+      return n1 * (t -= 2.625 / d1) * t + 0.984375
     }
   },
-  easeInOutExpo: (t) =>
+  easeInOutExpo: t =>
     t === 0
       ? 0
       : t === 1
-        ? 1
-        : t < 0.5
-          ? Math.pow(2, 20 * t - 10) / 2
-          : (2 - Math.pow(2, -20 * t + 10)) / 2,
-};
+      ? 1
+      : t < 0.5
+      ? Math.pow(2, 20 * t - 10) / 2
+      : (2 - Math.pow(2, -20 * t + 10)) / 2
+}
 
 /*
  * Leds
@@ -91,15 +68,30 @@ const leds = [
         length: 2000,
         ease: 'linear'
       }
-    ],
-  }, 
+    ]
+  },
+  {
+    animationIndex: 0,
+    animations: [
+      {
+        color: 0xff00ff,
+        length: 2000,
+        ease: 'linear'
+      },
+      {
+        color: 0x00ff00,
+        length: 2000,
+        ease: 'linear'
+      }
+    ]
+  }
 ]
 
 /*
  * Walk
  */
 class Walk {
-  constructor () {
+  constructor() {
     this.config = {
       leds: 10,
       dma: 10,
@@ -113,17 +105,32 @@ class Walk {
     ws281x.configure(this.config)
   }
 
-  loop () {
+  loop() {
     const pixels = new Uint32Array(this.config.leds)
 
-    pixels[this.offset] = 0x2bc280
+    for (let ledIndex = 0; ledIndex < leds.length; ledIndex++) {
+      const element = leds[ledIndex]
 
-    this.offset = (this.offset + 1) % this.config.leds
+      pixels[ledIndex] = element.animations[0].color
+    }
 
     ws281x.render(pixels)
   }
 
-  run () {
+  run() {
+    const startTime = performance.now()
+
+    console.log(startTime)
+
+    for (var ledIndex = 0; ledIndex < leds.length; ledIndex++) {
+      const led = leds[ledIndex]
+
+      // consider moving these out to a lightweight array or finding a better approach....
+      led.animationIndex = 0
+      led.startTime = startTime
+    }
+
+    // Repeat...
     setInterval(this.loop.bind(this), 50)
   }
 }
