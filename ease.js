@@ -1,12 +1,6 @@
 require('dotenv').config()
 
-let ws281x
-
-try {
-  ws281x = require.resolve('rpi-ws281x')
-} catch (e) {
-  console.error('ws281x not found')
-}
+const ws281x = require('rpi-ws281x')
 
 /*
  * Easing
@@ -116,7 +110,7 @@ class Walk {
 
     this.offset = 0
 
-    ws281x && ws281x.configure(this.config)
+    ws281x.configure(this.config)
   }
 
   loop () {
@@ -126,7 +120,7 @@ class Walk {
 
     this.offset = (this.offset + 1) % this.config.leds
 
-    ws281x && ws281x.render(pixels)
+    ws281x.render(pixels)
   }
 
   run () {
