@@ -1,26 +1,32 @@
 const { easing } = require('../easing')
+const { performance } = require('perf_hooks')
 
-const animate = (color1, color2, startTime, animateLength, easeFunc) => {
+const animate = (
+  colorOne,
+  colorTwo,
+  stcolorOneRtTime,
+  animateLength,
+  easeFunc
+) => {
   let amount = easing[easeFunc](
-    (1 / animateLength) * (performance.now() - startTime)
+    (1 / animateLength) * (performance.now() - stcolorOneRtTime)
   )
 
-  // Normalize color
-  amount = amount > 1 ? 1 : amount
+  amount = amount > 1 ? 1 : amount // Normalize fade amount
 
-  const ar = color1 >> 16
-  const ag = (color1 >> 8) & 0xff
-  const ab = color1 & 0xff
+  const colorOneR = colorOne >> 16
+  const colorOneG = (colorOne >> 8) & 0xff
+  const colorOneB = colorOne & 0xff
 
-  const br = color2 >> 16
-  const bg = (color2 >> 8) & 0xff
-  const bb = color2 & 0xff
+  const colorTwoR = colorTwo >> 16
+  const colorTwoG = (colorTwo >> 8) & 0xff
+  const colorTwoB = colorTwo & 0xff
 
-  const rr = ar + (br - ar) * amount
-  const rg = ag + (bg - ag) * amount
-  const rb = ab + (bb - ab) * amount
+  const colorTweenR = colorOneR + (colorTwoR - colorOneR) * amount
+  const colorTweenG = colorOneG + (colorTwoG - colorOneG) * amount
+  const colorTweenB = colorOneB + (colorTwoB - colorOneB) * amount
 
-  return (rr << 16) | (rg << 8) | (rb | 0)
+  return (colorTweenR << 16) | (colorTweenG << 8) | (colorTweenB | 0)
 }
 
 module.exports = {

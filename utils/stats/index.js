@@ -1,34 +1,23 @@
-// A very simple nodeJS script that demonstrates how you can access
-// memory usage information similar to how free -m works on the
-// Raspberry Pi. Goes with µCast #14. http://youtu.be/EqyVlTP4R5M
-
-// Usage: node pi_mem.js
-// Example Output
-//
-// total    used    free    cached
-// 469      65      404     31
-// Memory Usage:    7%
-
 const fs = require('fs')
 
-var PiStats = (function () {
+const PiStats = (() => {
   var memInfo = {}
   var currentCPUInfo = { total: 0, active: 0 }
   var lastCPUInfo = { total: 0, active: 0 }
 
-  function getValFromLine(line) {
+  const getValFromLine = line => {
     var match = line.match(/[0-9]+/gi)
     if (match !== null) return parseInt(match[0])
     else return null
   }
 
-  var getMemoryInfo = function (cb) {
-    fs.readFile('/proc/meminfo', 'utf8', function (err, data) {
+  const getMemoryInfo = cb => {
+    fs.readFile('/proc/meminfo', 'utf8', (err, data) => {
       if (err) {
         cb(err)
         return
       }
-      var lines = data.split('\n')
+      const lines = data.split('\n')
       memInfo.total = Math.floor(getValFromLine(lines[0]) / 1024)
       memInfo.free = Math.floor(getValFromLine(lines[1]) / 1024)
       memInfo.cached = Math.floor(getValFromLine(lines[3]) / 1024)
@@ -41,13 +30,14 @@ var PiStats = (function () {
     })
   }
 
-  var calculateCPUPercentage = function (oldVals, newVals) {
-    var totalDiff = newVals.total - oldVals.total
-    var activeDiff = newVals.active - oldVals.active
+  const calculateCPUPercentage = (oldVals, newVals) => {
+    const totalDiff = newVals.total - oldVals.total
+    const activeDiff = newVals.active - oldVals.active
+
     return Math.ceil((activeDiff / totalDiff) * 100)
   }
 
-  var getCPUInfo = function (cb) {
+  const getCPUInfo = cb => {
     lastCPUInfo.active = currentCPUInfo.active
     lastCPUInfo.idle = currentCPUInfo.idle
     lastCPUInfo.total = currentCPUInfo.total
@@ -57,9 +47,12 @@ var PiStats = (function () {
         if (cb !== undefined) cb(err)
         return
       }
-      var lines = data.split('\n')
-      var cpuTimes = lines[0].match(/[0-9]+/gi)
+
+      const lines = data.split('\n')
+      const cpuTimes = lines[0].match(/[0-9]+/gi)
+
       currentCPUInfo.total = 0
+
       // We'll count both idle and iowait as idle time
       currentCPUInfo.idle = parseInt(cpuTimes[3]) + parseInt(cpuTimes[4])
       for (var i = 0; i < cpuTimes.length; i++) {
@@ -78,8 +71,8 @@ var PiStats = (function () {
   return {
     getMemoryInfo: getMemoryInfo,
     getCPUInfo: getCPUInfo,
-    printMemoryInfo: function () {
-      getMemoryInfo(function (err, data) {
+    printMemoryInfo: () => {
+      getMemoryInfo((err, data) => {
         console.log('total\tused\tfree\tcached')
         console.log(
           data.total + '\t' + data.used + '\t' + data.free + '\t' + data.cached
@@ -87,8 +80,8 @@ var PiStats = (function () {
         console.log('Memory Usage:\t' + data.percentUsed + '%')
       })
     },
-    printCPUInfo: function () {
-      getCPUInfo(function (err, data) {
+    printCPUInfo: () => {
+      getCPUInfo((err, data) => {
         console.log('Current CPU Usage: ' + data.percentUsed + '%')
       })
     }

@@ -1,11 +1,14 @@
 require('dotenv').config()
 
 const ws281x = require('rpi-ws281x')
+const { ws281xConfig } = require('./config')
 const { leds } = require('./assets/led-gen')
 const { animate } = require('./utils/tween')
-const { ws281xConfig } = require('./config')
 const { onValue } = require('firebase/database')
 const { starCountRef } = require('./services/firebase')
+const { performance } = require('perf_hooks')
+
+const { runStats } = require('./utils/stats')
 
 onValue(starCountRef, snapshot => {
   const leds = snapshot.val()
@@ -14,18 +17,21 @@ onValue(starCountRef, snapshot => {
 
 ws281x.configure(ws281xConfig)
 
+let animationTracker = []
+
 const updateAnimation = ledIndex => {
   const led = leds[ledIndex]
-
+  const currentAnimationIndex = animationTracker[ledIndex].animationIndex
   const animations = led.animations
-  const currentAnimationIndex = led.animationIndex
   const nextAnimationIndex =
     currentAnimationIndex + 1 < animations.length
       ? currentAnimationIndex + 1
       : 0
 
-  led.animationIndex = nextAnimationIndex
-  led.startTime = performance.now()
+  animationTracker[ledIndex] = {
+    animationIndex: nextAnimationIndex,
+    startTime: performance.now()
+  }
 }
 
 const loop = () => {
@@ -33,10 +39,12 @@ const loop = () => {
 
   for (let ledIndex = 0; ledIndex < leds.length; ledIndex++) {
     const led = leds[ledIndex]
+    const currentAnimationTracker = animationTracker[ledIndex]
+
+    const currentAnimationIndex = currentAnimationTracker.animationIndex
+    const startTime = currentAnimationTracker.startTime
 
     const animations = led.animations
-    const currentAnimationIndex = led.animationIndex
-    const startTime = led.startTime
     const nextAnimationIndex =
       currentAnimationIndex + 1 < animations.length
         ? currentAnimationIndex + 1
@@ -65,16 +73,14 @@ const loop = () => {
 const start = () => {
   const startTime = performance.now()
 
-  for (var ledIndex = 0; ledIndex < leds.length; ledIndex++) {
-    const led = leds[ledIndex]
-
-    // consider moving these out to a lightweight array or finding a better approach....
-    led.animationIndex = 0
-    led.startTime = startTime
-  }
+  animationTracker = new Array(leds.length).fill({
+    animationIndex: 0,
+    startTime: startTime
+  })
 
   // Repeat...
-  setInterval(loop, 20)
+  setInterval(loop, 25)
 }
 
+runStats()
 start()

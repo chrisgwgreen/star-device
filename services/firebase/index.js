@@ -1,13 +1,12 @@
 const { initializeApp } = require('firebase/app')
-const { getFirestore, collection, getDocs } = require('firebase/firestore/lite')
-const { getDatabase, ref, onValue } = require('firebase/database')
-const { getAuth } = require('firebase/auth')
+const { getDatabase, ref } = require('firebase/database')
 const { firebaseConfig } = require('../../config')
+// const { getFirestore, collection, getDocs } = require('firebase/firestore/lite')
+// const { getAuth } = require('firebase/auth')
 
 const app = initializeApp(firebaseConfig)
-const db = getFirestore(app)
-const db2 = getDatabase()
-const auth2 = getAuth()
+const db2 = getDatabase(app)
+// const auth2 = getAuth()
 
 const starCountRef = ref(db2, 'defaultStar')
 
