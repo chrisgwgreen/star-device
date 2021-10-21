@@ -5,7 +5,7 @@ class Solid {
     this.config = {
       leds: 150,
       dma: 10,
-      brightness: 200,
+      brightness: 255,
       gpio: 18,
       stripType: 'rgb'
     }
@@ -16,7 +16,7 @@ class Solid {
   run() {
     const pixels = new Uint32Array(this.config.leds)
 
-    for (let i = 0; i < this.config.leds; i++) pixels[i] = 0xffffff
+    for (let i = 0; i < this.config.leds; i++) pixels[i] = 0x008cff
 
     ws281x.render(pixels)
   }

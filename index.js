@@ -6,9 +6,7 @@ const { leds } = require('./assets/led-gen')
 const { animate } = require('./utils/tween')
 const { onValue } = require('firebase/database')
 const { starCountRef } = require('./services/firebase')
-const { performance } = require('perf_hooks')
-
-const { runStats } = require('./utils/stats')
+// const { performance } = require('perf_hooks')
 
 onValue(starCountRef, snapshot => {
   const leds = snapshot.val()
@@ -19,7 +17,7 @@ ws281x.configure(ws281xConfig)
 
 let animationTracker = []
 
-const updateAnimation = ledIndex => {
+const updateAnimation = (ledIndex, currentTime) => {
   const led = leds[ledIndex]
   const currentAnimationIndex = animationTracker[ledIndex].animationIndex
   const animations = led.animations
@@ -30,12 +28,13 @@ const updateAnimation = ledIndex => {
 
   animationTracker[ledIndex] = {
     animationIndex: nextAnimationIndex,
-    startTime: performance.now()
+    startTime: currentTime
   }
 }
 
 const loop = () => {
   const pixels = new Uint32Array(ws281xConfig.leds)
+  const currentTime = new Date().getTime() //performance.now()
 
   for (let ledIndex = 0; ledIndex < leds.length; ledIndex++) {
     const led = leds[ledIndex]
@@ -56,6 +55,7 @@ const loop = () => {
       currentAnimation.color,
       nextAnimation.color,
       startTime,
+      currentTime,
       currentAnimation.length,
       currentAnimation.ease
     )
@@ -63,7 +63,7 @@ const loop = () => {
     pixels[ledIndex] = color
 
     if (color == nextAnimation.color) {
-      updateAnimation(ledIndex)
+      updateAnimation(ledIndex, currentTime)
     }
   }
 
@@ -71,7 +71,7 @@ const loop = () => {
 }
 
 const start = () => {
-  const startTime = performance.now()
+  const startTime = new Date().getTime() //performance.now()
 
   animationTracker = new Array(leds.length).fill({
     animationIndex: 0,
@@ -79,8 +79,7 @@ const start = () => {
   })
 
   // Repeat...
-  setInterval(loop, 25)
+  setInterval(loop, 30)
 }
 
-runStats()
 start()

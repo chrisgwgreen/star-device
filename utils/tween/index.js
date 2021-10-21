@@ -1,16 +1,15 @@
 const { easing } = require('../easing')
-const { performance } = require('perf_hooks')
+// const { performance } = require('perf_hooks')
 
 const animate = (
   colorOne,
   colorTwo,
-  stcolorOneRtTime,
+  startTime,
+  currentTime,
   animateLength,
   easeFunc
 ) => {
-  let amount = easing[easeFunc](
-    (1 / animateLength) * (performance.now() - stcolorOneRtTime)
-  )
+  let amount = easing[easeFunc]((1 / animateLength) * (currentTime - startTime))
 
   amount = amount > 1 ? 1 : amount // Normalize fade amount
 
