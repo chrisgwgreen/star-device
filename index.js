@@ -6,7 +6,6 @@ const { leds } = require('./assets/led-gen')
 const { animate } = require('./utils/tween')
 const { onValue } = require('firebase/database')
 const { starCountRef } = require('./services/firebase')
-// const { performance } = require('perf_hooks')
 
 onValue(starCountRef, snapshot => {
   const leds = snapshot.val()
@@ -34,7 +33,13 @@ const updateAnimation = (ledIndex, currentTime) => {
 
 const loop = () => {
   const pixels = new Uint32Array(ws281xConfig.leds)
-  const currentTime = new Date().getTime() //performance.now()
+  const currentTime = new Date().getTime()
+
+  // Blink
+  const second = currentTime % 1000
+  // TODO get blink speed...
+  const blinkSpeed = 100
+  const isBlinkOn = Math.floor(second / blinkSpeed) % 2
 
   for (let ledIndex = 0; ledIndex < leds.length; ledIndex++) {
     const led = leds[ledIndex]
@@ -44,21 +49,24 @@ const loop = () => {
     const startTime = currentAnimationTracker.startTime
 
     const animations = led.animations
+    const isBlinking = led.isBlinking
     const nextAnimationIndex =
       currentAnimationIndex + 1 < animations.length
         ? currentAnimationIndex + 1
         : 0
     const currentAnimation = animations[currentAnimationIndex]
     const nextAnimation = animations[nextAnimationIndex]
+    let color = 0x000000
 
-    const color = animate(
-      currentAnimation.color,
-      nextAnimation.color,
-      startTime,
-      currentTime,
-      currentAnimation.length,
-      currentAnimation.ease
-    )
+    if ((isBlinkOn && isBlinking) || !isBlinking)
+      color = animate(
+        currentAnimation.color,
+        nextAnimation.color,
+        startTime,
+        currentTime,
+        currentAnimation.length,
+        currentAnimation.ease
+      )
 
     pixels[ledIndex] = color
 
@@ -71,14 +79,13 @@ const loop = () => {
 }
 
 const start = () => {
-  const startTime = new Date().getTime() //performance.now()
+  const startTime = new Date().getTime()
 
   animationTracker = new Array(leds.length).fill({
     animationIndex: 0,
     startTime: startTime
   })
 
-  // Repeat...
   setInterval(loop, 30)
 }
 

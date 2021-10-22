@@ -1,8 +1,4 @@
-- twinkle
-- flash
-- blink 
-- blink speed
-
 - offset animation (and update based on init)
-
-!- fade in/out cant be done
+- twinkle
+- shooting star
+- blinking rate

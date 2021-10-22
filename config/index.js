@@ -11,7 +11,7 @@ const firebaseConfig = {
 const ws281xConfig = {
   leds: 150,
   dma: 10,
-  brightness: 70,
+  brightness: 150,
   gpio: 18,
   stripType: 'rgb'
 }

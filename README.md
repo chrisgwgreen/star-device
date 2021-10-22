@@ -12,9 +12,16 @@ pwd - `usual password`
 - node-rpi-ws281x-native - `https://github.com/beyondscreen/node-rpi-ws281x-native`
 - wiring diagram - `https://cp2004.gitbook.io/ws281x-led-status/guides/setup-guide-1/wiring-your-leds`
 
-
 ### Pin Out
 
 GPIO18
 
 https://i.stack.imgur.com/yHddo.png
+
+### Reboot script
+
+https://www.instructables.com/Raspberry-Pi-Launch-Python-script-on-startup/
+
+ps -A
+ps aux
+sudo kill -9 ID
