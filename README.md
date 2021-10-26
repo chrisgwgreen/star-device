@@ -22,6 +22,5 @@ https://i.stack.imgur.com/yHddo.png
 
 https://www.instructables.com/Raspberry-Pi-Launch-Python-script-on-startup/
 
-ps -A
 ps aux
 sudo kill -9 ID
