@@ -5,7 +5,7 @@ for (let index = 0; index < 150; index++) {
   leds.push({
     isBlinking: false,
     blinkRate: 4,
-    offset: 0,
+    offset: index * 10,
     animations: [
       {
         color: 0xff0000,
