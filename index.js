@@ -3,9 +3,10 @@ require('dotenv').config()
 const ws281x = require('rpi-ws281x')
 const { ws281xConfig } = require('./config')
 const { leds, twinkles } = require('./assets/twinkle')
-const { animate } = require('./utils/tween')
+const { blend, shadeColor } = require('./utils/tween')
 const { onValue } = require('firebase/database')
 const { starCountRef } = require('./services/firebase')
+const { timeRatio } = require('./utils/timeRatio')
 
 onValue(starCountRef, snapshot => {
   const fbLeds = snapshot.val()
@@ -64,19 +65,20 @@ const loop = () => {
     let color = 0x000000
 
     // Update LEDS
-    if ((isBlinkOn && isBlinking) || !isBlinking)
-      color =
-        animations.length === 1
-          ? currentAnimation.color
-          : animate(
-              currentAnimation.color,
-              nextAnimation.color,
-              startTime,
-              currentTime,
-              currentAnimation.length,
-              currentAnimation.ease
-            )
+    if ((isBlinkOn && isBlinking) || !isBlinking) {
+      if (animations.length === 1) {
+        color = currentAnimation.color
+      } else {
+        const amount = timeRatio(
+          startTime,
+          currentTime,
+          currentAnimation.length,
+          currentAnimation.ease
+        )
 
+        color = blend(currentAnimation.color, nextAnimation.color, amount)
+      }
+    }
     pixels[ledIndex] = color
 
     if (color == nextAnimation.color) {
@@ -84,26 +86,26 @@ const loop = () => {
     }
   }
 
-  // Apply twinkles
+  // Twinkles
   for (let twinkleIndex = 0; twinkleIndex < twinkles.length; twinkleIndex++) {
     const twinkle = twinkles[twinkleIndex]
-    const x = twinkleTracker[twinkleIndex]
+    const twinkleTrack = twinkleTracker[twinkleIndex]
 
     const currentTwinkleIndex = Math.floor(
       ((twinkle.endIndex - twinkle.startIndex) / twinkle.speed) *
-        (currentTime - x.startTime) +
+        (currentTime - twinkleTrack.startTime) +
         twinkle.startIndex
     )
 
-    if (currentTwinkleIndex >= twinkle.endIndex) {
+    if (currentTwinkleIndex >= twinkle.endIndex)
       twinkleTracker[twinkleIndex].startTime = currentTime
-    }
 
     pixels[currentTwinkleIndex] = twinkle.color
+
     if (currentTwinkleIndex - 1 >= 0)
-      pixels[currentTwinkleIndex - 1] = twinkle.color
+      pixels[currentTwinkleIndex - 1] = shadeColor(twinkle.color, -30)
     if (currentTwinkleIndex - 2 >= 0)
-      pixels[currentTwinkleIndex - 2] = twinkle.color
+      pixels[currentTwinkleIndex - 2] = shadeColor(twinkle.color, -50)
   }
 
   ws281x.render(pixels)

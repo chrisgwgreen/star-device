@@ -1,4 +1,5 @@
 let leds = []
+let twinkles = []
 
 for (let index = 0; index < 150; index++) {
   if (index % 2) {
@@ -9,6 +10,11 @@ for (let index = 0; index < 150; index++) {
       animations: [
         {
           color: 0xff9500,
+          length: 2000,
+          ease: 'linear'
+        },
+        {
+          color: 0x008cff,
           length: 2000,
           ease: 'linear'
         }
@@ -35,6 +41,15 @@ for (let index = 0; index < 150; index++) {
   }
 }
 
+twinkles.push({
+  color: 0xffffff,
+  delay: 3000,
+  speed: 10000,
+  startIndex: 0,
+  endIndex: 150
+})
+
 module.exports = {
-  leds
+  leds,
+  twinkles
 }
