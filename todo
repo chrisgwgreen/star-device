@@ -1,3 +1,2 @@
-- offset animation (and update based on init)
-- twinkle
 - convert 0xffffff -> #ffffff
+- fade in/out

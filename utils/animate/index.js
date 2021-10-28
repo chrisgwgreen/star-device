@@ -73,19 +73,32 @@ const animateLoop = (pixels, leds, currentTime) => {
 const animateSetup = (leds, startTime) => {
   animationTracker = []
 
+  // Calculate Offsets
   for (let ledIndex = 0; ledIndex < leds.length; ledIndex++) {
-    // const led = leds[ledIndex]
+    const led = leds[ledIndex]
+    const animations = led.animations
 
-    // const offset = led.offset //TODO continue
+    let offset = led.offset
+    let animationIndex = 0
 
-    animationTracker.push({
-      animationIndex: 0,
-      startTime: startTime
-    })
+    while (offset >= 0 && animationIndex < animations.length) {
+      if (offset - animations[animationIndex].length < 0) {
+        animationTracker.push({
+          animationIndex,
+          startTime: startTime + offset
+        })
+        break
+      } else {
+        offset = offset - animations[animationIndex].length
+      }
+
+      animationIndex++
+    }
   }
 }
 
 module.exports = {
   animateLoop,
-  animateSetup
+  animateSetup,
+  animationTracker
 }
