@@ -3,8 +3,8 @@ let twinkles = []
 
 for (let index = 0; index < 150; index++) {
   leds.push({
-    isBlinking: true,
-    blinkRate: 4,
+    isBlinking: false,
+    blinkRate: 8,
     offset: index * 10,
     animations: [
       {

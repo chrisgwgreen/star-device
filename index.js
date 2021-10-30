@@ -2,23 +2,20 @@ require('dotenv').config()
 
 const ws281x = require('rpi-ws281x')
 const { ws281xConfig } = require('./config')
-const { leds, twinkles } = require('./assets/rainbow')
-const { onValue } = require('firebase/database')
-const { starCountRef } = require('./services/firebase')
-const { twinkleLoop, twinkleSetup } = require('./utils/twinkle')
+// const { leds, twinkles } = require('./assets/rainbow')
+const { firebaseSetup } = require('./src/services/firebase')
+const { twinkleLoop, twinkleSetup } = require('./src/utils/twinkle')
 const {
   animateLoop,
   animateSetup
   // animationTracker
-} = require('./utils/animate')
+} = require('./src/utils/animate')
 // const { fadeLoop } = require('./utils/fade')
 
-onValue(starCountRef, snapshot => {
-  const fbLeds = snapshot.val()
-  console.log(fbLeds)
-})
-
 ws281x.configure(ws281xConfig)
+
+let leds = []
+let twinkles = []
 
 const loop = () => {
   let pixels = new Uint32Array(ws281xConfig.leds)
@@ -36,14 +33,21 @@ const loop = () => {
   setTimeout(loop, 30)
 }
 
-const start = () => {
+const setup = (nextLeds, nextTwinkles) => {
   const startTime = new Date().getTime()
+
+  leds = nextLeds
+  twinkles = nextTwinkles
 
   animateSetup(leds, startTime)
   twinkleSetup(twinkles, startTime)
+
+  // fadeLoop(pixels, leds, animationTracker, currentTime)
 
   // Animate
   loop()
 }
 
-start()
+// setup()
+
+firebaseSetup(setup)

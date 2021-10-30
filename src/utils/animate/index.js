@@ -77,22 +77,29 @@ const animateSetup = (leds, startTime) => {
   for (let ledIndex = 0; ledIndex < leds.length; ledIndex++) {
     const led = leds[ledIndex]
     const animations = led.animations
-
-    let offset = led.offset
     let animationIndex = 0
 
-    while (offset >= 0 && animationIndex < animations.length) {
-      if (offset - animations[animationIndex].length < 0) {
-        animationTracker.push({
-          animationIndex,
-          startTime: startTime + offset
-        })
-        break
-      } else {
-        offset = offset - animations[animationIndex].length
-      }
+    if (animations.length === 1) {
+      animationTracker.push({
+        animationIndex,
+        startTime: startTime
+      })
+    } else {
+      let offset = led.offset
 
-      animationIndex++
+      while (offset >= 0 && animationIndex < animations.length) {
+        if (offset - animations[animationIndex].length < 0) {
+          animationTracker.push({
+            animationIndex,
+            startTime: startTime + offset
+          })
+          break
+        } else {
+          offset = offset - animations[animationIndex].length
+        }
+
+        animationIndex++
+      }
     }
   }
 }
