@@ -2,23 +2,18 @@ require('dotenv').config()
 
 const ws281x = require('rpi-ws281x')
 const { ws281xConfig } = require('./config')
-const { leds, twinkles } = require('./assets/rainbow')
-const { onValue } = require('firebase/database')
-const { starCountRef } = require('./services/firebase')
+const { getAnimation } = require('./assets/rainbow')
 const { twinkleLoop, twinkleSetup } = require('./utils/twinkle')
 const {
   animateLoop,
   animateSetup
   // animationTracker
-} = require('./utils/animate')
-// const { fadeLoop } = require('./utils/fade')
-
-onValue(starCountRef, snapshot => {
-  const fbLeds = snapshot.val()
-  console.log(fbLeds)
-})
+} = require('./utils/animate') // const { fadeLoop } = require('./utils/fade')
 
 ws281x.configure(ws281xConfig)
+
+let leds = []
+let twinkles = []
 
 const loop = () => {
   let pixels = new Uint32Array(ws281xConfig.leds)
@@ -38,6 +33,11 @@ const loop = () => {
 
 const start = () => {
   const startTime = new Date().getTime()
+
+  const { leds: patternLeds, twinkles: patternTwinkles } = getAnimation()
+
+  leds = animationLeds
+  twinkles = patternTwinkles
 
   animateSetup(leds, startTime)
   twinkleSetup(twinkles, startTime)
