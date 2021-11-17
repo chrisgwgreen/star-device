@@ -1,54 +1,51 @@
 /**
- * pattern-1 - Inner star vs outer star
+ * pattern-2- Solid white inner with twinkle. Rainbow outer
  */
-
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
 const innerAnimation = [
   {
-    color: 0xffffff,
-    length: 10000,
-    ease: 'linear'
-  },
-  {
-    color: 0x555555,
-    length: 200,
-    ease: 'linear'
+    color: 0xffffff
   }
 ]
 
 const outerAnimation = [
   {
-    color: 0xd30d0d,
-    length: 5000,
-    ease: 'linear'
-  },
-  {
     color: 0xff0000,
-    length: 5000,
+    length: 500,
     ease: 'linear'
   },
   {
-    color: 0xaacc00,
-    length: 5000,
+    color: 0xffff00,
+    length: 500,
     ease: 'linear'
   },
   {
-    color: 0x55a630,
-    length: 5000,
+    color: 0x00ff00,
+    length: 500,
     ease: 'linear'
   },
   {
-    color: 0xffdd00,
-    length: 5000,
+    color: 0x00ffff,
+    length: 500,
+    ease: 'linear'
+  },
+  {
+    color: 0x0000ff,
+    length: 500,
+    ease: 'linear'
+  },
+  {
+    color: 0xff00ff,
+    length: 500,
     ease: 'linear'
   }
 ]
 
 const twinkleAninmation = {
-  color: 0xffffff,
-  delay: 5000,
+  color: 0xff0000,
+  delay: 2000,
   speed: 400
 }
 
@@ -71,7 +68,7 @@ const ledAnimations = [
   {
     animations: outerAnimation,
     isBlinking: false,
-    blinkRate: 4,
+    blinkRate: 1,
     bulbIndexes: [
       getLegIndexes('northeast-top'),
       getLegIndexes('northeast-bottom'),
@@ -90,20 +87,20 @@ const twinkleAnimations = [
     animation: twinkleAninmation,
     isForward: true,
     twinkleIndexes: [
-      getLegIndexes('northeast-top'),
-      getLegIndexes('southeast-top'),
-      getLegIndexes('southwest-bottom'),
-      getLegIndexes('northwest-bottom')
+      getLegIndexes('east-top'),
+      getLegIndexes('south-right'),
+      getLegIndexes('west-bottom'),
+      getLegIndexes('north-left')
     ]
   },
   {
     animation: twinkleAninmation,
     isForward: false,
     twinkleIndexes: [
-      getLegIndexes('northeast-bottom'),
-      getLegIndexes('southeast-bottom'),
-      getLegIndexes('southwest-top'),
-      getLegIndexes('northwest-top')
+      getLegIndexes('north-right'),
+      getLegIndexes('east-bottom'),
+      getLegIndexes('south-left'),
+      getLegIndexes('west-top')
     ]
   }
 ]

@@ -7,42 +7,13 @@ const { animateTranslate } = require('../utils/animate')
 
 const innerAnimation = [
   {
-    color: 0xffffff,
-    length: 10000,
-    ease: 'linear'
-  },
-  {
-    color: 0x555555,
-    length: 200,
-    ease: 'linear'
+    color: 0xffffff
   }
 ]
 
 const outerAnimation = [
   {
-    color: 0xd30d0d,
-    length: 5000,
-    ease: 'linear'
-  },
-  {
-    color: 0xff0000,
-    length: 5000,
-    ease: 'linear'
-  },
-  {
-    color: 0xaacc00,
-    length: 5000,
-    ease: 'linear'
-  },
-  {
-    color: 0x55a630,
-    length: 5000,
-    ease: 'linear'
-  },
-  {
-    color: 0xffdd00,
-    length: 5000,
-    ease: 'linear'
+    color: 0x000000
   }
 ]
 

@@ -1,5 +1,6 @@
 const { timeRatio } = require('../timeRatio')
 const { blend } = require('../tween')
+const { LED_LENGTH } = require('../constants')
 
 let animationTracker = []
 
@@ -82,7 +83,7 @@ const animateSetup = (leds, startTime) => {
     let animationIndex = 0
 
     while (offset >= 0 && animationIndex < animations.length) {
-      if (offset - animations[animationIndex].length < 0) {
+      if (offset === 0 || offset - animations[animationIndex].length < 0) {
         animationTracker.push({
           animationIndex,
           startTime: startTime + offset
@@ -97,8 +98,55 @@ const animateSetup = (leds, startTime) => {
   }
 }
 
+const animateTranslate = (ledAnimations, twinkleAnimations) => {
+  let leds = new Array(LED_LENGTH)
+  let twinkles = []
+
+  // Setup led animations
+  ledAnimations.forEach(
+    ({ animations, isBlinking, blinkRate, bulbIndexes }) => {
+      bulbIndexes.forEach(({ startIndex, endIndex }) => {
+        leds.fill(
+          {
+            // offset: index * 10,
+            offset: 0,
+            isBlinking,
+            blinkRate,
+            animations
+          },
+          startIndex,
+          endIndex + 1
+        )
+      })
+    }
+  )
+
+  // Setup twinkle animations
+  twinkleAnimations.forEach(({ animation, isForward, twinkleIndexes }) => {
+    twinkleIndexes.forEach(({ startIndex, endIndex }) => {
+      const direction = isForward
+        ? {
+            startIndex: startIndex,
+            endIndex: endIndex
+          }
+        : {
+            startIndex: endIndex + 1,
+            endIndex: startIndex
+          }
+
+      twinkles.push({
+        ...animation,
+        ...direction
+      })
+    })
+  })
+
+  return { leds, twinkles }
+}
+
 module.exports = {
   animateLoop,
   animateSetup,
-  animationTracker
+  animationTracker,
+  animateTranslate
 }

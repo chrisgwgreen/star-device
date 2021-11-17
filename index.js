@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const ws281x = require('rpi-ws281x')
 const { ws281xConfig } = require('./config')
-const { getAnimation } = require('./assets/rainbow')
+const { getAnimation } = require('./assets/pattern-4')
 const { twinkleLoop, twinkleSetup } = require('./utils/twinkle')
 const {
   animateLoop,
@@ -34,10 +34,10 @@ const loop = () => {
 const start = () => {
   const startTime = new Date().getTime()
 
-  const { leds: patternLeds, twinkles: patternTwinkles } = getAnimation()
+  const { leds: animationLeds, twinkles: animationTwinkles } = getAnimation()
 
   leds = animationLeds
-  twinkles = patternTwinkles
+  twinkles = animationTwinkles
 
   animateSetup(leds, startTime)
   twinkleSetup(twinkles, startTime)
