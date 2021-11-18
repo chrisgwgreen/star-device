@@ -1,49 +1,46 @@
 require('dotenv').config()
 
-const ws281x = require('rpi-ws281x')
-const { ws281xConfig } = require('./config')
-const { getAnimation } = require('./assets/pattern-4')
-const { twinkleLoop, twinkleSetup } = require('./utils/twinkle')
+const { CronJob } = require('cron')
+const { getAnimation } = require('./src/services/pattern-selector')
+const { setAnimation } = require('./src/services/led')
 const {
-  animateLoop,
-  animateSetup
-  // animationTracker
-} = require('./utils/animate') // const { fadeLoop } = require('./utils/fade')
+  nextAnimationCron,
+  morningStartCron,
+  morningEndCron,
+  eveningStartCron,
+  eveningEndCron
+} = require('./src/constants')
 
-ws281x.configure(ws281xConfig)
+const nextAnimation = new CronJob({
+  cronTime: nextAnimationCron,
+  onTick: () => {
+    console.log('You will see this message every second')
+    setAnimation(getAnimation)
+  }
+})
 
-let leds = []
-let twinkles = []
+const morningStart = new CronJob({
+  cronTime: morningStartCron,
+  onTick: () => nextAnimation.start(),
+  runOnInit: true
+})
 
-const loop = () => {
-  let pixels = new Uint32Array(ws281xConfig.leds)
-  const currentTime = new Date().getTime()
+const morningEnd = new CronJob({
+  cronTime: morningEndCron,
+  onTick: () => nextAnimation.stop()
+})
 
-  // pixels = fadeLoop()
+const eveningStart = new CronJob({
+  cronTime: eveningStartCron,
+  onTick: () => nextAnimation.start()
+})
 
-  // fadeLoop(pixels, leds, animationTracker, currentTime)
+const eveningEnd = new CronJob({
+  cronTime: eveningEndCron,
+  onTick: () => nextAnimation.stop()
+})
 
-  pixels = animateLoop(pixels, leds, currentTime)
-  pixels = twinkleLoop(pixels, twinkles, currentTime)
-
-  ws281x.render(pixels)
-
-  setTimeout(loop, 30)
-}
-
-const start = () => {
-  const startTime = new Date().getTime()
-
-  const { leds: animationLeds, twinkles: animationTwinkles } = getAnimation()
-
-  leds = animationLeds
-  twinkles = animationTwinkles
-
-  animateSetup(leds, startTime)
-  twinkleSetup(twinkles, startTime)
-
-  // Animate
-  loop()
-}
-
-start()
+morningStart.start()
+morningEnd.start()
+eveningStart.start()
+eveningEnd.start()

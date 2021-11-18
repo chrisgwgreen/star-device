@@ -1,6 +1,6 @@
 const { initializeApp } = require('firebase/app')
 const { getDatabase, ref } = require('firebase/database')
-const { firebaseConfig } = require('../../config')
+const { firebaseConfig } = require('../../constants')
 // const { getFirestore, collection, getDocs } = require('firebase/firestore/lite')
 // const { getAuth } = require('firebase/auth')
 

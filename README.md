@@ -24,3 +24,11 @@ https://www.instructables.com/Raspberry-Pi-Launch-Python-script-on-startup/
 
 ps aux
 sudo kill -9 ID
+
+MVP
+
+- link to firebase using auth
+- fetch pattern
+- convert 0xffffff -> #ffffff
+- fade in/out
+- refine twinkle

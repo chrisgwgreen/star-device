@@ -1,6 +1,6 @@
 const { timeRatio } = require('../timeRatio')
 const { blend } = require('../tween')
-const { LED_LENGTH } = require('../constants')
+const { ledLength } = require('../../constants')
 
 let animationTracker = []
 
@@ -99,7 +99,7 @@ const animateSetup = (leds, startTime) => {
 }
 
 const animateTranslate = (ledAnimations, twinkleAnimations) => {
-  let leds = new Array(LED_LENGTH)
+  let leds = new Array(ledLength)
   let twinkles = []
 
   // Setup led animations

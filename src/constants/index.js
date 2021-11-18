@@ -1,3 +1,25 @@
+const ledLength = 150
+
+const ledBrightness = 100
+
+const ws281xConfig = {
+  leds: ledLength,
+  dma: 10,
+  brightness: ledBrightness,
+  gpio: 18,
+  stripType: 'rgb'
+}
+
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  databaseURL: process.env.REACT_APP_DB,
+  projectId: process.env.REACT_APP_PID,
+  storageBucket: process.env.REACT_APP_SB,
+  messagingSenderId: process.env.REACT_APP_SID,
+  appId: process.env.REACT_APP_APPID
+}
+
 const legs = [
   { bulbs: 9, type: 'inner', name: 'north-right' },
   { bulbs: 8, type: 'outer', name: 'northeast-top' },
@@ -17,26 +39,22 @@ const legs = [
   { bulbs: 9, type: 'inner', name: 'north-left' }
 ]
 
-const getLegIndexes = name => {
-  const indexes = {
-    startIndex: 0,
-    endIndex: 0
-  }
-
-  for (let legIndex = 0; legIndex < legs.length; legIndex++) {
-    const leg = legs[legIndex]
-
-    if (leg.name === name) {
-      indexes.endIndex = indexes.startIndex + leg.bulbs - 1
-      break
-    } else {
-      indexes.startIndex = indexes.startIndex + leg.bulbs
-    }
-  }
-
-  return indexes
-}
+const nextAnimationCron = '*/5 * * * * *'
+const morningStartCron = '20 0 * * *'
+const morningEndCron = '21 0 * * *'
+const eveningStartCron = '0 15 * * *'
+const eveningEndCron = '0 1 * * *'
 
 module.exports = {
-  getLegIndexes
+  ledLength,
+  ledBrightness,
+  legs,
+  firebaseConfig,
+  ws281xConfig,
+
+  nextAnimationCron,
+  morningStartCron,
+  morningEndCron,
+  eveningStartCron,
+  eveningEndCron
 }
