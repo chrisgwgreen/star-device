@@ -1,9 +1,10 @@
 const ws281x = require('rpi-ws281x')
+
 const { ws281xConfig } = require('../../constants')
 const { twinkleLoop, twinkleSetup } = require('../../utils/twinkle')
 const { animateLoop, animateSetup } = require('../../utils/animate')
 
-ws281x.configure(ws281xConfig)
+ws281x && ws281x.configure(ws281xConfig)
 
 let leds = []
 let twinkles = []

@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js"
+    "dev": "node index.js",
+    "dev:desktop": "REACT_APP_LEDS=false node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cron": "^1.8.2",
     "dotenv": "^10.0.0",
-    "firebase": "^9.0.1"
+    "firebase": "^9.0.1",
+    "luxon": "^2.1.1"
   },
   "optionalDependencies": {
     "rpi-ws281x": "^1.0.36"
