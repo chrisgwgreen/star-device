@@ -3,6 +3,8 @@
  */
 
 const getAnimation = () => {
+  console.log('Pattern 6')
+
   let leds = []
   let twinkles = []
 

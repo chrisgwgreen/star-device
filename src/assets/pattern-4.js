@@ -6,6 +6,8 @@ const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
 const getAnimation = () => {
+  console.log('Pattern 4')
+
   const innerAnimation = [
     {
       color: 0xffffff
@@ -80,7 +82,7 @@ const getAnimation = () => {
     }
   ]
 
-  animateTranslate(ledAnimations, twinkleAnimations)
+  return animateTranslate(ledAnimations, twinkleAnimations)
 }
 
 module.exports = {

@@ -13,7 +13,7 @@
     "cron": "^1.8.2",
     "dotenv": "^10.0.0",
     "firebase": "^9.0.1",
-    "luxon": "^2.1.1"
+    "moment": "^2.29.1"
   },
   "optionalDependencies": {
     "rpi-ws281x": "^1.0.36"

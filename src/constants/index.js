@@ -39,16 +39,16 @@ const legs = [
   { bulbs: 9, type: 'inner', name: 'north-left' }
 ]
 
-const morningStartTime = 5
-const morningEndTime = 9
-const eveningStartTime = 15
-const eveningEndTime = 1
+const morningStartHour = 5
+const morningEndHour = 9
+const eveningStartHour = 15
+const eveningEndHour = 1
 
 const nextAnimationCron = `*/5 * * * * *`
-const morningStartCron = `0 ${morningStartTime} * * *`
-const morningEndCron = `0 ${morningEndTime} * * *`
-const eveningStartCron = `0 ${eveningStartTime} * * *`
-const eveningEndCron = `0 ${eveningEndTime} * * *`
+const morningStartCron = `0 ${morningStartHour} * * *`
+const morningEndCron = `0 ${morningEndHour} * * *`
+const eveningStartCron = `0 ${eveningStartHour} * * *`
+const eveningEndCron = `0 ${eveningEndHour} * * *`
 
 module.exports = {
   ledLength,
@@ -62,8 +62,8 @@ module.exports = {
   morningEndCron,
   eveningStartCron,
   eveningEndCron,
-  morningStartTime,
-  morningEndTime,
-  eveningStartTime,
-  eveningEndTime,
+  morningStartHour,
+  morningEndHour,
+  eveningStartHour,
+  eveningEndHour
 }

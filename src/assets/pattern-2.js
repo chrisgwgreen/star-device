@@ -108,7 +108,7 @@ const getAnimation = () => {
     }
   ]
 
-  animateTranslate(ledAnimations, twinkleAnimations)
+  return animateTranslate(ledAnimations, twinkleAnimations)
 }
 
 module.exports = {

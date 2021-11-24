@@ -1,34 +1,29 @@
 /**
- * pattern-3- Solid white inner with twinkle. Rainbow outer
+ * pattern-9- Solid white inner with twinkle. Rainbow outer
  */
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
 const getAnimation = () => {
-  console.log('Pattern 7')
+  console.log('Pattern 9')
 
   const animation = [
     {
-      color: 0x008080,
-      length: 500,
-      ease: 'linear'
-    },
-    {
-      color: 0xffc0cb,
-      length: 500,
-      ease: 'linear'
-    },
-    {
-      color: 0x89cff0,
-      length: 500,
-      ease: 'linear'
+      color: 0x000000
     }
   ]
 
-  const twinkleAnimation = {
+  const twinkle1Animation = {
     color: 0xffffff,
     delay: 1000,
-    speed: 3000
+    speed: 4000
+  }
+
+  const twinkle2Animation = {
+    color: 0xffffff,
+    delay: 1000,
+    speed: 4000,
+    offset: 500
   }
 
   const ledAnimations = [
@@ -59,14 +54,24 @@ const getAnimation = () => {
 
   const twinkleAnimations = [
     {
-      animation: twinkleAnimation,
+      animation: twinkle1Animation,
       isForward: true,
-      twinkleIndexes: [getLegIndexes('south-right')]
+      twinkleIndexes: [
+        {
+          startIndex: 0,
+          endIndex: 74
+        }
+      ]
     },
     {
-      animation: twinkleAnimation,
+      animation: twinkle2Animation,
       isForward: false,
-      twinkleIndexes: [getLegIndexes('south-left')]
+      twinkleIndexes: [
+        {
+          startIndex: 75,
+          endIndex: 149
+        }
+      ]
     }
   ]
 

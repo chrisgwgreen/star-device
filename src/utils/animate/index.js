@@ -105,6 +105,9 @@ const animateTranslate = (ledAnimations, twinkleAnimations) => {
   // Setup led animations
   ledAnimations.forEach(
     ({ animations, isBlinking, blinkRate, bulbIndexes }) => {
+      // TODO isOffsetBulb
+      // TODO isOffsetAnimation
+
       bulbIndexes.forEach(({ startIndex, endIndex }) => {
         leds.fill(
           {

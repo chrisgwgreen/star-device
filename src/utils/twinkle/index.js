@@ -15,15 +15,16 @@ const twinkleLoop = (pixels, twinkles, currentTime) => {
 
     const direction = twinkle.startIndex < twinkle.endIndex ? 1 : -1
 
-    // ignore if in delayed
-    if (currentTime - twinkleTrack.startTime <= twinkle.delay) break
-
-    const currentTwinkleIndex = Math.floor(
+    let currentTwinkleIndex =
       (Math.abs(twinkle.endIndex - twinkle.startIndex) / twinkle.speed) *
         direction *
         (currentTime - twinkle.delay - twinkleTrack.startTime) +
-        (direction ? twinkle.startIndex : twinkle.endIndex)
-    )
+      (direction ? twinkle.startIndex : twinkle.endIndex)
+
+    currentTwinkleIndex =
+      direction > 0
+        ? Math.floor(currentTwinkleIndex)
+        : Math.ceil(currentTwinkleIndex)
 
     pixels[currentTwinkleIndex] = twinkle.color
 
@@ -33,7 +34,7 @@ const twinkleLoop = (pixels, twinkles, currentTime) => {
       nextTwinkleIndex >= 0 &&
       nextTwinkleIndex.between(twinkle.endIndex, twinkle.startIndex)
     ) {
-      pixels[nextTwinkleIndex] = shadeColor(twinkle.color, -30)
+      pixels[nextTwinkleIndex] = shadeColor(twinkle.color, -40)
     }
 
     nextTwinkleIndex = currentTwinkleIndex - 2 * direction
@@ -41,14 +42,14 @@ const twinkleLoop = (pixels, twinkles, currentTime) => {
       nextTwinkleIndex >= 0 &&
       nextTwinkleIndex.between(twinkle.endIndex, twinkle.startIndex)
     ) {
-      pixels[nextTwinkleIndex] = shadeColor(twinkle.color, -50)
+      pixels[nextTwinkleIndex] = shadeColor(twinkle.color, -60)
     }
 
     // Reset twinkle...
     if (
       direction > 0
         ? currentTwinkleIndex >= twinkle.endIndex
-        : currentTwinkleIndex < twinkle.endIndex
+        : currentTwinkleIndex <= twinkle.endIndex
     )
       twinkleTracker[twinkleIndex].startTime = currentTime
   }
@@ -60,8 +61,10 @@ const twinkleSetup = (twinkles, startTime) => {
   twinkleTracker = []
 
   for (let twinkleIndex = 0; twinkleIndex < twinkles.length; twinkleIndex++) {
+    const { offset = 0 } = twinkles[twinkleIndex]
+
     twinkleTracker.push({
-      startTime: startTime
+      startTime: startTime + offset
     })
   }
 }

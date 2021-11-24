@@ -4,25 +4,24 @@ const { CronJob } = require('cron')
 const { getAnimation } = require('./src/services/pattern-selector')
 const { setAnimation } = require('./src/services/led')
 const { setupFirebase } = require('./src/services/firebase')
-const { DateTime } = require('luxon')
+const moment = require('moment')
 const {
   nextAnimationCron,
   morningStartCron,
   morningEndCron,
   eveningStartCron,
   eveningEndCron,
-  morningStartTime,
-  morningEndTime,
-  eveningStartTime,
-  eveningEndTime
+  morningStartHour,
+  morningEndHour,
+  eveningStartHour,
+  eveningEndHour
 } = require('./src/constants')
 
 const startAnimation = () => setAnimation(getAnimation)
 
 const nextAnimation = new CronJob({
   cronTime: nextAnimationCron,
-  onTick: () => startAnimation,
-  runOnInit: true
+  onTick: () => startAnimation
 })
 
 const morningStart = new CronJob({
@@ -51,22 +50,22 @@ morningEnd.start()
 eveningStart.start()
 eveningEnd.start()
 
-startAnimation()
+// Start if initialised within times...
+const format = 'hh:mm'
+const now = moment()
+const morningStartDate = moment(`0${morningStartHour}:00`, format)
+const morningEndDate = moment(`0${morningEndHour}:00`, format)
+const eveningStartDate = moment(`${eveningStartHour}:00`, format)
+const eveningEndDate = moment()
+  .add(1, 'days')
+  .set({ hour: eveningEndHour, minute: 0, second: 0, millisecond: 0 })
 
-const now = DateTime.now()
-
-// const future = now.set({
-//   hour: 21
-// })
-
-// // Test if plugged in between working hours...
-// const now = new Date().getHours()
-// if (
-//   (now >= morningStartTime && now <= morningEndTime) ||
-//   (now >= eveningStartTime && now <= eveningEndTime)
-// ) {
-//   nextAnimation.start()
-//   startAnimation()
-// }
+if (
+  now.isBetween(morningStartDate, morningEndDate) ||
+  now.isBetween(eveningStartDate, eveningEndDate)
+) {
+  console.log('Begin animation...')
+  startAnimation()
+}
 
 setupFirebase()

@@ -51,8 +51,8 @@ const getAnimation = () => {
 
   const twinkleAnimation = {
     color: 0xffffff,
-    delay: 5000,
-    speed: 400
+    delay: 2000,
+    speed: 1000
   }
 
   const ledAnimations = [
