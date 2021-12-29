@@ -2,7 +2,7 @@ const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
 const getAnimation = () => {
-  console.log('Pattern 9')
+  console.log('Pattern 10')
 
   const animation = [
     {
@@ -47,7 +47,7 @@ const getAnimation = () => {
       animations: animation,
       isBlinking: false,
       blinkRate: 0,
-      offsetAnimation: 7000,
+      offsetBlub: 10,
       bulbIndexes: [
         getLegIndexes('north-right'),
         getLegIndexes('east-top'),
@@ -56,14 +56,7 @@ const getAnimation = () => {
         getLegIndexes('southwest-top'),
         getLegIndexes('southwest-bottom'),
         getLegIndexes('northwest-top'),
-        getLegIndexes('northwest-bottom')
-      ]
-    },
-    {
-      animations: animation,
-      isBlinking: false,
-      blinkRate: 0,
-      bulbIndexes: [
+        getLegIndexes('northwest-bottom'),
         getLegIndexes('north-left'),
         getLegIndexes('south-left'),
         getLegIndexes('west-bottom'),

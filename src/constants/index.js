@@ -1,6 +1,6 @@
 const ledLength = 150
 
-const ledBrightness = 100
+const ledBrightness = 200
 
 const ws281xConfig = {
   leds: ledLength,
@@ -44,11 +44,11 @@ const morningEndHour = 9
 const eveningStartHour = 15
 const eveningEndHour = 1
 
-const nextAnimationCron = `*/5 * * * * *`
-const morningStartCron = `0 ${morningStartHour} * * *`
-const morningEndCron = `0 ${morningEndHour} * * *`
-const eveningStartCron = `0 ${eveningStartHour} * * *`
-const eveningEndCron = `0 ${eveningEndHour} * * *`
+const nextAnimationCron = `1 * * * * *`
+const morningStartCron = `* * 5 * * *`
+const morningEndCron = `* * 09 * * *`
+const eveningStartCron = `* * 15 * * *`
+const eveningEndCron = '* * 1 * * *'
 
 module.exports = {
   ledLength,

@@ -2,32 +2,19 @@ const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
 const getAnimation = () => {
-  console.log('Pattern 7')
+  console.log('Pattern 14')
 
   const animation = [
     {
-      color: 0x000000
+      color: 0xffffff
     }
   ]
-
-  const twinkle1Animation = {
-    color: 0xffffff,
-    delay: 1000,
-    speed: 4000
-  }
-
-  const twinkle2Animation = {
-    color: 0xffffff,
-    delay: 1000,
-    speed: 2000,
-    offset: 500
-  }
 
   const ledAnimations = [
     {
       animations: animation,
-      isBlinking: true,
-      blinkRate: 4,
+      isBlinking: false,
+      blinkRate: 0,
       bulbIndexes: [
         getLegIndexes('north-right'),
         getLegIndexes('north-left'),
@@ -49,31 +36,7 @@ const getAnimation = () => {
     }
   ]
 
-  const twinkleAnimations = [
-    {
-      animation: twinkle1Animation,
-      isForward: true,
-      twinkleIndexes: [
-        { ...getLegIndexes('north-right') },
-        { ...getLegIndexes('east-top') },
-        { ...getLegIndexes('east-bottom') },
-        { ...getLegIndexes('south-right') },
-        { ...getLegIndexes('south-left') },
-        { ...getLegIndexes('west-bottom') },
-        { ...getLegIndexes('west-top') }
-      ]
-    },
-    {
-      animation: twinkle2Animation,
-      isForward: false,
-      twinkleIndexes: [
-        {
-          startIndex: 75,
-          endIndex: 149
-        }
-      ]
-    }
-  ]
+  const twinkleAnimations = []
 
   return animateTranslate(ledAnimations, twinkleAnimations)
 }

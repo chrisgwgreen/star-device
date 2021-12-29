@@ -1,88 +1,85 @@
-/**
- * pattern-1 - Inner star vs outer star
- */
-
-const { getLegIndexes } = require('../utils/legs')
-const { animateTranslate } = require('../utils/animate')
-
 const getAnimation = () => {
   console.log('Pattern 4')
 
-  const innerAnimation = [
-    {
-      color: 0xffffff
-    }
-  ]
+  let leds = []
+  let twinkles = []
 
-  const outerAnimation = [
-    {
-      color: 0x000000
-    }
-  ]
-
-  const twinkleAnimation = {
-    color: 0xffffff,
-    delay: 5000,
-    speed: 400
+  for (let index = 0; index < 150; index++) {
+    leds.push({
+      isBlinking: false,
+      blinkRate: 4,
+      offset: index * 10,
+      animations: [
+        {
+          color: 0xff0000,
+          length: 500,
+          ease: 'linear'
+        },
+        {
+          color: 0xffff00,
+          length: 500,
+          ease: 'linear'
+        },
+        {
+          color: 0x00ff00,
+          length: 500,
+          ease: 'linear'
+        },
+        {
+          color: 0x00ffff,
+          length: 500,
+          ease: 'linear'
+        },
+        {
+          color: 0x0000ff,
+          length: 500,
+          ease: 'linear'
+        },
+        {
+          color: 0xff00ff,
+          length: 500,
+          ease: 'linear'
+        }
+      ]
+    })
   }
 
-  const ledAnimations = [
-    {
-      animations: innerAnimation,
-      isBlinking: false,
-      blinkRate: 4,
-      bulbIndexes: [
-        getLegIndexes('north-right'),
-        getLegIndexes('north-left'),
-        getLegIndexes('east-top'),
-        getLegIndexes('east-bottom'),
-        getLegIndexes('south-right'),
-        getLegIndexes('south-left'),
-        getLegIndexes('west-bottom'),
-        getLegIndexes('west-top')
-      ]
-    },
-    {
-      animations: outerAnimation,
-      isBlinking: false,
-      blinkRate: 4,
-      bulbIndexes: [
-        getLegIndexes('northeast-top'),
-        getLegIndexes('northeast-bottom'),
-        getLegIndexes('southeast-top'),
-        getLegIndexes('southeast-bottom'),
-        getLegIndexes('southwest-top'),
-        getLegIndexes('southwest-bottom'),
-        getLegIndexes('northwest-top'),
-        getLegIndexes('northwest-bottom')
-      ]
-    }
-  ]
+  twinkles.push({
+    color: 0xffffff,
+    delay: 3000,
+    speed: 5000,
+    startIndex: 0,
+    endIndex: 150
+  })
 
-  const twinkleAnimations = [
-    {
-      animation: twinkleAnimation,
-      isForward: true,
-      twinkleIndexes: [
-        getLegIndexes('northeast-top'),
-        getLegIndexes('southeast-top'),
-        getLegIndexes('southwest-bottom'),
-        getLegIndexes('northwest-bottom')
-      ]
-    },
-    {
-      animation: twinkleAnimation,
-      isForward: false,
-      twinkleIndexes: [
-        getLegIndexes('northeast-bottom'),
-        getLegIndexes('southeast-bottom'),
-        getLegIndexes('southwest-top'),
-        getLegIndexes('northwest-top')
-      ]
-    }
-  ]
+  twinkles.push({
+    color: 0xffffff,
+    delay: 3000,
+    speed: 5000,
+    startIndex: 150,
+    endIndex: 0
+  })
 
-  return animateTranslate(ledAnimations, twinkleAnimations)
+  twinkles.push({
+    color: 0xffffff,
+    delay: 4000,
+    speed: 5000,
+    startIndex: 0,
+    endIndex: 150
+  })
+
+  twinkles.push({
+    color: 0xffffff,
+    delay: 4000,
+    speed: 5000,
+    startIndex: 150,
+    endIndex: 0
+  })
+
+  return {
+    leds,
+    twinkles
+  }
 }
 
 module.exports = {

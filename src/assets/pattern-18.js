@@ -2,15 +2,9 @@ const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
 const getAnimation = () => {
-  console.log('Pattern 2')
+  console.log('Pattern 18')
 
-  const innerAnimation = [
-    {
-      color: 0xffffff
-    }
-  ]
-
-  const outerAnimation = [
+  const animation = [
     {
       color: 0xff0000,
       length: 500,
@@ -43,17 +37,13 @@ const getAnimation = () => {
     }
   ]
 
-  const twinkleAnimation = {
-    color: 0xff0000,
-    delay: 2000,
-    speed: 400
-  }
-
   const ledAnimations = [
     {
-      animations: innerAnimation,
+      animations: animation,
       isBlinking: false,
-      blinkRate: 4,
+      blinkRate: 0,
+      offsetBlub: 100,
+      offsetAnimation: 100,
       bulbIndexes: [
         getLegIndexes('north-right'),
         getLegIndexes('north-left'),
@@ -62,14 +52,7 @@ const getAnimation = () => {
         getLegIndexes('south-right'),
         getLegIndexes('south-left'),
         getLegIndexes('west-bottom'),
-        getLegIndexes('west-top')
-      ]
-    },
-    {
-      animations: outerAnimation,
-      isBlinking: false,
-      blinkRate: 1,
-      bulbIndexes: [
+        getLegIndexes('west-top'),
         getLegIndexes('northeast-top'),
         getLegIndexes('northeast-bottom'),
         getLegIndexes('southeast-top'),
@@ -82,28 +65,7 @@ const getAnimation = () => {
     }
   ]
 
-  const twinkleAnimations = [
-    {
-      animation: twinkleAnimation,
-      isForward: true,
-      twinkleIndexes: [
-        getLegIndexes('east-top'),
-        getLegIndexes('south-right'),
-        getLegIndexes('west-bottom'),
-        getLegIndexes('north-left')
-      ]
-    },
-    {
-      animation: twinkleAnimation,
-      isForward: false,
-      twinkleIndexes: [
-        getLegIndexes('north-right'),
-        getLegIndexes('east-bottom'),
-        getLegIndexes('south-left'),
-        getLegIndexes('west-top')
-      ]
-    }
-  ]
+  const twinkleAnimations = []
 
   return animateTranslate(ledAnimations, twinkleAnimations)
 }

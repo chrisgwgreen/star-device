@@ -3,6 +3,7 @@ const ws281x = require('rpi-ws281x')
 const { ws281xConfig } = require('../../constants')
 const { twinkleLoop, twinkleSetup } = require('../../utils/twinkle')
 const { animateLoop, animateSetup } = require('../../utils/animate')
+const { ledLength } = require('../../constants')
 
 ws281x && ws281x.configure(ws281xConfig)
 
@@ -35,6 +36,19 @@ const setAnimation = getAnimation => {
   loopInterval = setInterval(loop, 30)
 }
 
+const endAnimation = () => {
+  clearInterval(loopInterval)
+
+  let pixels = new Uint32Array(ws281xConfig.leds)
+
+  for (let index = 0; index < ledLength; index++) {
+    pixels[index] = 0x000000
+  }
+
+  ws281x.render(pixels)
+}
+
 module.exports = {
-  setAnimation
+  setAnimation,
+  endAnimation
 }

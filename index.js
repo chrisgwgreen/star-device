@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const { CronJob } = require('cron')
 const { getAnimation } = require('./src/services/pattern-selector')
-const { setAnimation } = require('./src/services/led')
+const { setAnimation, endAnimation } = require('./src/services/led')
 const { setupFirebase } = require('./src/services/firebase')
 const moment = require('moment')
 const {
@@ -18,20 +18,29 @@ const {
 } = require('./src/constants')
 
 const startAnimation = () => setAnimation(getAnimation)
+const stopAnimation = () => {
+  endAnimation()
+  nextAnimation.stop()
+}
 
 const nextAnimation = new CronJob({
   cronTime: nextAnimationCron,
-  onTick: () => startAnimation
+  onTick: () => {
+    console.log('Next animation')
+    startAnimation()
+  },
+  runOnInit: true
 })
 
 const morningStart = new CronJob({
   cronTime: morningStartCron,
-  onTick: () => nextAnimation.start()
+  onTick: () => nextAnimation.start(),
+  runOnInit: true
 })
 
 const morningEnd = new CronJob({
   cronTime: morningEndCron,
-  onTick: () => nextAnimation.stop()
+  onTick: () => stopAnimation()
 })
 
 const eveningStart = new CronJob({
@@ -41,7 +50,7 @@ const eveningStart = new CronJob({
 
 const eveningEnd = new CronJob({
   cronTime: eveningEndCron,
-  onTick: () => nextAnimation.stop()
+  onTick: () => stopAnimation()
 })
 
 // Start cron jobs...
@@ -65,7 +74,7 @@ if (
   now.isBetween(eveningStartDate, eveningEndDate)
 ) {
   console.log('Begin animation...')
-  startAnimation()
+  nextAnimation.start()
 }
 
 setupFirebase()

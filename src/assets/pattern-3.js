@@ -1,6 +1,3 @@
-/**
- * pattern-3- Solid white inner with twinkle. Rainbow outer
- */
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
@@ -9,21 +6,22 @@ const getAnimation = () => {
 
   const innerAnimation = [
     {
-      color: 0x000000
+      color: 0xffffff
     }
   ]
 
   const outerAnimation = [
     {
-      color: 0x000000
+      color: 0x888888,
+      length: 2000,
+      ease: 'easeOutBounce'
+    },
+    {
+      color: 0x0000000,
+      length: 2000,
+      ease: 'easeOutBounce'
     }
   ]
-
-  const twinkleAnimation = {
-    color: 0xffffff,
-    delay: 1000,
-    speed: 3000
-  }
 
   const ledAnimations = [
     {
@@ -44,7 +42,7 @@ const getAnimation = () => {
     {
       animations: outerAnimation,
       isBlinking: false,
-      blinkRate: 1,
+      blinkRate: 4,
       bulbIndexes: [
         getLegIndexes('northeast-top'),
         getLegIndexes('northeast-bottom'),
@@ -58,18 +56,7 @@ const getAnimation = () => {
     }
   ]
 
-  const twinkleAnimations = [
-    {
-      animation: twinkleAnimation,
-      isForward: true,
-      twinkleIndexes: [getLegIndexes('south-right')]
-    },
-    {
-      animation: twinkleAnimation,
-      isForward: false,
-      twinkleIndexes: [getLegIndexes('south-left')]
-    }
-  ]
+  const twinkleAnimations = []
 
   return animateTranslate(ledAnimations, twinkleAnimations)
 }

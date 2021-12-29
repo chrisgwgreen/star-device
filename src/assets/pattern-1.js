@@ -1,7 +1,3 @@
-/**
- * pattern-1 - Inner star vs outer star
- */
-
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 

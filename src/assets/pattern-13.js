@@ -2,7 +2,7 @@ const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
 const getAnimation = () => {
-  console.log('Pattern 8')
+  console.log('Pattern 13')
 
   const animation = [
     {
@@ -11,25 +11,34 @@ const getAnimation = () => {
   ]
 
   const twinkle1Animation = {
-    color: 0xffffff,
+    color: `0x${((Math.random() * 0xffffff) << 0)
+      .toString(16)
+      .padStart(6, '0')}`,
     delay: Math.random() * 1000,
     speed: Math.random() * 3000 + 1000
   }
 
   const twinkle2Animation = {
-    color: 0xffffff,
+    color: `0x${((Math.random() * 0xffffff) << 0)
+      .toString(16)
+      .padStart(6, '0')}`,
     delay: Math.random() * 1000,
     speed: Math.random() * 3000 + 2000,
     offset: 500
   }
+
   const twinkle3Animation = {
-    color: 0xffffff,
+    color: `0x${((Math.random() * 0xffffff) << 0)
+      .toString(16)
+      .padStart(6, '0')}`,
     delay: Math.random() * 1000,
     speed: Math.random() * 3000 + 3000
   }
 
   const twinkle4Animation = {
-    color: 0xffffff,
+    color: `0x${((Math.random() * 0xffffff) << 0)
+      .toString(16)
+      .padStart(6, '0')}`,
     delay: Math.random() * 1000,
     speed: Math.random() * 3000 + 4000,
     offset: 500

@@ -24,48 +24,49 @@ const animateLoop = (pixels, leds, currentTime) => {
 
   for (let ledIndex = 0; ledIndex < leds.length; ledIndex++) {
     const led = leds[ledIndex]
+    try {
+      // Animation position
+      const currentAnimationTracker = animationTracker[ledIndex]
+      const currentAnimationIndex = currentAnimationTracker.animationIndex
+      const startTime = currentAnimationTracker.startTime
 
-    // Animation position
-    const currentAnimationTracker = animationTracker[ledIndex]
-    const currentAnimationIndex = currentAnimationTracker.animationIndex
-    const startTime = currentAnimationTracker.startTime
+      const animations = led.animations
 
-    const animations = led.animations
+      const nextAnimationIndex =
+        currentAnimationIndex + 1 < animations.length
+          ? currentAnimationIndex + 1
+          : 0
+      const currentAnimation = animations[currentAnimationIndex]
+      const nextAnimation = animations[nextAnimationIndex]
 
-    const nextAnimationIndex =
-      currentAnimationIndex + 1 < animations.length
-        ? currentAnimationIndex + 1
-        : 0
-    const currentAnimation = animations[currentAnimationIndex]
-    const nextAnimation = animations[nextAnimationIndex]
+      // Blinking
+      const isBlinking = led.isBlinking
+      const blinkSpeed = isBlinking && 1000 / led.blinkRate
+      const isBlinkOn = isBlinking && Math.floor(second / blinkSpeed) % 2
 
-    // Blinking
-    const isBlinking = led.isBlinking
-    const blinkSpeed = isBlinking && 1000 / led.blinkRate
-    const isBlinkOn = isBlinking && Math.floor(second / blinkSpeed) % 2
+      let color = 0x000000
 
-    let color = 0x000000
+      // Update LEDS
+      if ((isBlinkOn && isBlinking) || !isBlinking) {
+        if (animations.length === 1) {
+          color = currentAnimation.color
+        } else {
+          const amount = timeRatio(
+            startTime,
+            currentTime,
+            currentAnimation.length,
+            currentAnimation.ease
+          )
 
-    // Update LEDS
-    if ((isBlinkOn && isBlinking) || !isBlinking) {
-      if (animations.length === 1) {
-        color = currentAnimation.color
-      } else {
-        const amount = timeRatio(
-          startTime,
-          currentTime,
-          currentAnimation.length,
-          currentAnimation.ease
-        )
-
-        color = blend(currentAnimation.color, nextAnimation.color, amount)
+          color = blend(currentAnimation.color, nextAnimation.color, amount)
+        }
       }
-    }
-    pixels[ledIndex] = color
+      pixels[ledIndex] = color
 
-    if (color == nextAnimation.color) {
-      updateAnimation(leds, ledIndex, currentTime)
-    }
+      if (color == nextAnimation.color) {
+        updateAnimation(leds, ledIndex, currentTime)
+      }
+    } catch (error) {}
   }
 
   return pixels
@@ -104,22 +105,23 @@ const animateTranslate = (ledAnimations, twinkleAnimations) => {
 
   // Setup led animations
   ledAnimations.forEach(
-    ({ animations, isBlinking, blinkRate, bulbIndexes }) => {
-      // TODO isOffsetBulb
-      // TODO isOffsetAnimation
-
-      bulbIndexes.forEach(({ startIndex, endIndex }) => {
-        leds.fill(
-          {
-            // offset: index * 10,
-            offset: 0,
+    ({
+      animations,
+      isBlinking,
+      blinkRate,
+      bulbIndexes,
+      offsetAnimation = 0,
+      offsetBlub = 0
+    }) => {
+      bulbIndexes.forEach(({ startIndex, endIndex }, i) => {
+        for (let index = startIndex; index < endIndex + 1; index++) {
+          leds[index] = {
+            offset: offsetAnimation + i * offsetBlub,
             isBlinking,
             blinkRate,
             animations
-          },
-          startIndex,
-          endIndex + 1
-        )
+          }
+        }
       })
     }
   )
