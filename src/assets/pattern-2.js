@@ -1,3 +1,9 @@
+/*
+ * Description:
+ * Inner: White Solid with full white tinkles
+ * Outer: Frozen show blue colours
+ */
+
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
@@ -12,22 +18,12 @@ const getAnimation = () => {
 
   const outerAnimation = [
     {
-      color: 0xff0000,
+      color: 0x6f00f9,
       length: 500,
       ease: 'linear'
     },
     {
-      color: 0xffff00,
-      length: 500,
-      ease: 'linear'
-    },
-    {
-      color: 0x00ff00,
-      length: 500,
-      ease: 'linear'
-    },
-    {
-      color: 0x00ffff,
+      color: 0x610cff,
       length: 500,
       ease: 'linear'
     },
@@ -37,16 +33,21 @@ const getAnimation = () => {
       ease: 'linear'
     },
     {
-      color: 0xff00ff,
+      color: 0x2365ff,
+      length: 500,
+      ease: 'linear'
+    },
+    {
+      color: 0x00d1ff,
       length: 500,
       ease: 'linear'
     }
   ]
 
   const twinkleAnimation = {
-    color: 0xff0000,
+    color: 0xfcfefd,
     delay: 2000,
-    speed: 400
+    speed: 600
   }
 
   const ledAnimations = [

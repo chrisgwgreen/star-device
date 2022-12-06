@@ -1,3 +1,8 @@
+/*
+ * Description:
+ * Inner & Outer: None gay
+ */
+
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
@@ -6,39 +11,29 @@ const getAnimation = () => {
 
   const animation = [
     {
-      color: 0xff0000,
-      length: 2000,
-      ease: 'easeOutCubic'
+      color: 0x5a1848,
+      length: 500,
+      ease: 'linear'
     },
     {
-      color: 0xff7f00,
-      length: 2000,
-      ease: 'easeOutCubic'
+      color: 0x920b3e,
+      length: 500,
+      ease: 'linear'
     },
     {
-      color: 0xffff00,
-      length: 2000,
-      ease: 'easeOutCubic'
+      color: 0xc70239,
+      length: 500,
+      ease: 'linear'
     },
     {
-      color: 0x00ff00,
-      length: 2000,
-      ease: 'easeOutCubic'
+      color: 0xff5634,
+      length: 500,
+      ease: 'linear'
     },
     {
-      color: 0x0000ff,
-      length: 2000,
-      ease: 'easeOutCubic'
-    },
-    {
-      color: 0x4b0082,
-      length: 2000,
-      ease: 'easeOutCubic'
-    },
-    {
-      color: 0x9400d3,
-      length: 2000,
-      ease: 'easeOutCubic'
+      color: 0xffc300,
+      length: 500,
+      ease: 'linear'
     }
   ]
 
@@ -47,36 +42,31 @@ const getAnimation = () => {
       animations: animation,
       isBlinking: false,
       blinkRate: 0,
-      offsetAnimation: 7000,
+      offsetBlub: 100,
       bulbIndexes: [
         getLegIndexes('north-right'),
+        getLegIndexes('north-left'),
         getLegIndexes('east-top'),
         getLegIndexes('east-bottom'),
         getLegIndexes('south-right'),
-        getLegIndexes('southwest-top'),
-        getLegIndexes('southwest-bottom'),
-        getLegIndexes('northwest-top'),
-        getLegIndexes('northwest-bottom')
-      ]
-    },
-    {
-      animations: animation,
-      isBlinking: false,
-      blinkRate: 0,
-      bulbIndexes: [
-        getLegIndexes('north-left'),
         getLegIndexes('south-left'),
         getLegIndexes('west-bottom'),
         getLegIndexes('west-top'),
         getLegIndexes('northeast-top'),
         getLegIndexes('northeast-bottom'),
         getLegIndexes('southeast-top'),
-        getLegIndexes('southeast-bottom')
+        getLegIndexes('southeast-bottom'),
+        getLegIndexes('southwest-top'),
+        getLegIndexes('southwest-bottom'),
+        getLegIndexes('northwest-top'),
+        getLegIndexes('northwest-bottom')
       ]
     }
   ]
 
-  return animateTranslate(ledAnimations, [])
+  const twinkleAnimations = []
+
+  return animateTranslate(ledAnimations, twinkleAnimations)
 }
 
 module.exports = {

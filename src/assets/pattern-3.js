@@ -1,3 +1,9 @@
+/*
+ * Description:
+ * Inner: Solid white
+ * Outer: Fade white
+ */
+
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
@@ -13,13 +19,13 @@ const getAnimation = () => {
   const outerAnimation = [
     {
       color: 0x888888,
-      length: 2000,
-      ease: 'easeOutBounce'
+      length: 4000,
+      ease: 'easeOutSine'
     },
     {
       color: 0x0000000,
-      length: 2000,
-      ease: 'easeOutBounce'
+      length: 4000,
+      ease: 'easeOutSine'
     }
   ]
 

@@ -1,3 +1,8 @@
+/*
+ * Description:
+ * Inner & Outer: Frozen palette
+ */
+
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
@@ -6,45 +11,63 @@ const getAnimation = () => {
 
   const animation = [
     {
-      color: 0xff0000,
-      length: 2000,
-      ease: 'easeOutCubic'
+      color: 0x8b0a50,
+      length: 500,
+      ease: 'linear'
     },
     {
-      color: 0x9400d3,
-      length: 2000,
-      ease: 'easeOutCubic'
+      color: 0x7ec0ee,
+      length: 1000,
+      ease: 'linear'
+    },
+    {
+      color: 0xbfefff,
+      length: 1000,
+      ease: 'linear'
+    },
+    {
+      color: 0xf8f8ff,
+      length: 1000,
+      ease: 'linear'
+    },
+    {
+      color: 0xb452cd,
+      length: 500,
+      ease: 'linear'
     }
   ]
 
   const ledAnimations = [
     {
       animations: animation,
-      isBlinking: true,
-      blinkRate: 10,
-      offsetBlub: 10,
+      isBlinking: false,
+      blinkRate: 0,
+      offsetBlub: 100,
+      offsetAnimation: 100,
       bulbIndexes: [
         getLegIndexes('north-right'),
+        getLegIndexes('north-left'),
         getLegIndexes('east-top'),
         getLegIndexes('east-bottom'),
         getLegIndexes('south-right'),
-        getLegIndexes('southwest-top'),
-        getLegIndexes('southwest-bottom'),
-        getLegIndexes('northwest-top'),
-        getLegIndexes('northwest-bottom'),
-        getLegIndexes('north-left'),
         getLegIndexes('south-left'),
         getLegIndexes('west-bottom'),
         getLegIndexes('west-top'),
         getLegIndexes('northeast-top'),
         getLegIndexes('northeast-bottom'),
         getLegIndexes('southeast-top'),
-        getLegIndexes('southeast-bottom')
+        getLegIndexes('southeast-bottom'),
+        getLegIndexes('southwest-top'),
+        getLegIndexes('southwest-bottom'),
+        getLegIndexes('northwest-top'),
+        getLegIndexes('northwest-bottom')
       ]
     }
   ]
 
-  return animateTranslate(ledAnimations, [])
+  const twinkleAnimations = []
+
+  return animateTranslate(ledAnimations, twinkleAnimations)
 }
 
 module.exports = {

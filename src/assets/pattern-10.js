@@ -1,3 +1,8 @@
+/*
+ * Description:
+ * Inner & Outer: Full rainbow.
+ */
+
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
@@ -6,37 +11,37 @@ const getAnimation = () => {
 
   const animation = [
     {
-      color: 0xff0000,
+      color: 0xff5b5b,
       length: 2000,
       ease: 'easeOutCubic'
     },
     {
-      color: 0xff7f00,
+      color: 0xff9f41,
       length: 2000,
       ease: 'easeOutCubic'
     },
     {
-      color: 0xffff00,
+      color: 0xfdfd3d,
       length: 2000,
       ease: 'easeOutCubic'
     },
     {
-      color: 0x00ff00,
+      color: 0x5aff5a,
       length: 2000,
       ease: 'easeOutCubic'
     },
     {
-      color: 0x0000ff,
+      color: 0x6868ff,
       length: 2000,
       ease: 'easeOutCubic'
     },
     {
-      color: 0x4b0082,
+      color: 0x663399,
       length: 2000,
       ease: 'easeOutCubic'
     },
     {
-      color: 0x9400d3,
+      color: 0xed94ed,
       length: 2000,
       ease: 'easeOutCubic'
     }

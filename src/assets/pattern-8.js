@@ -1,3 +1,8 @@
+/*
+ * Description:
+ * Inner & Outer: Nice twinkling all over pattern
+ */
+
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
@@ -40,6 +45,20 @@ const getAnimation = () => {
     delay: Math.random() * 1000,
     speed: Math.random() * 3000 + 5000,
     offset: 700
+  }
+
+  const twinkle6Animation = {
+    color: 0xffffff,
+    delay: Math.random() * 500,
+    speed: Math.random() * 3000 + 6000,
+    offset: 900
+  }
+
+  const twinkle7Animation = {
+    color: 0xffffff,
+    delay: Math.random() * 800,
+    speed: Math.random() * 3000 + 7000,
+    offset: 1000
   }
 
   const ledAnimations = [
@@ -346,6 +365,86 @@ const getAnimation = () => {
         {
           startIndex: 75,
           endIndex: 149
+        }
+      ]
+    },
+    {
+      animation: twinkle6Animation,
+      isForward: false,
+      twinkleIndexes: [
+        {
+          startIndex: 0,
+          endIndex: 74
+        }
+      ]
+    },
+    {
+      animation: twinkle6Animation,
+      isForward: true,
+      twinkleIndexes: [
+        {
+          startIndex: 75,
+          endIndex: 149
+        }
+      ]
+    },
+    {
+      animation: twinkle7Animation,
+      isForward: false,
+      twinkleIndexes: [
+        {
+          startIndex: 0,
+          endIndex: 74
+        }
+      ]
+    },
+    {
+      animation: twinkle7Animation,
+      isForward: true,
+      twinkleIndexes: [
+        {
+          startIndex: 75,
+          endIndex: 149
+        }
+      ]
+    },
+    {
+      animation: twinkle6Animation,
+      isForward: false,
+      twinkleIndexes: [
+        {
+          startIndex: 74,
+          endIndex: 0
+        }
+      ]
+    },
+    {
+      animation: twinkle6Animation,
+      isForward: true,
+      twinkleIndexes: [
+        {
+          startIndex: 149,
+          endIndex: 75
+        }
+      ]
+    },
+    {
+      animation: twinkle7Animation,
+      isForward: false,
+      twinkleIndexes: [
+        {
+          startIndex: 74,
+          endIndex: 0
+        }
+      ]
+    },
+    {
+      animation: twinkle7Animation,
+      isForward: true,
+      twinkleIndexes: [
+        {
+          startIndex: 149,
+          endIndex: 75
         }
       ]
     }

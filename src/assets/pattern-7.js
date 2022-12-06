@@ -1,42 +1,41 @@
+/*
+ * Description:
+ * Inner & outer: Gold and White transitions
+ */
+
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
 const getAnimation = () => {
   console.log('Pattern 7')
 
-  const animation = [
+  const twinkleAnimation = {
+    color: 0xffffff,
+    delay: 2000,
+    speed: 1000
+  }
+
+  const outerAnimation = [
     {
-      color: 0x000000
+      color: 0xffffff,
+      length: 4000,
+      ease: 'easeOutQuint'
     }
   ]
 
-  const twinkle1Animation = {
-    color: 0xffffff,
-    delay: 1000,
-    speed: 4000
-  }
-
-  const twinkle2Animation = {
-    color: 0xffffff,
-    delay: 1000,
-    speed: 2000,
-    offset: 500
-  }
+  const innerAnimation = [
+    {
+      color: 0xffd700,
+      length: 4000,
+      ease: 'easeOutQuint'
+    }
+  ]
 
   const ledAnimations = [
     {
-      animations: animation,
-      isBlinking: true,
-      blinkRate: 4,
+      animations: innerAnimation,
+
       bulbIndexes: [
-        getLegIndexes('north-right'),
-        getLegIndexes('north-left'),
-        getLegIndexes('east-top'),
-        getLegIndexes('east-bottom'),
-        getLegIndexes('south-right'),
-        getLegIndexes('south-left'),
-        getLegIndexes('west-bottom'),
-        getLegIndexes('west-top'),
         getLegIndexes('northeast-top'),
         getLegIndexes('northeast-bottom'),
         getLegIndexes('southeast-top'),
@@ -46,31 +45,42 @@ const getAnimation = () => {
         getLegIndexes('northwest-top'),
         getLegIndexes('northwest-bottom')
       ]
+    },
+    {
+      animations: outerAnimation,
+
+      bulbIndexes: [
+        getLegIndexes('north-right'),
+        getLegIndexes('north-left'),
+        getLegIndexes('east-top'),
+        getLegIndexes('east-bottom'),
+        getLegIndexes('south-right'),
+        getLegIndexes('south-left'),
+        getLegIndexes('west-bottom'),
+        getLegIndexes('west-top')
+      ]
     }
   ]
 
   const twinkleAnimations = [
     {
-      animation: twinkle1Animation,
+      animation: twinkleAnimation,
       isForward: true,
       twinkleIndexes: [
-        { ...getLegIndexes('north-right') },
-        { ...getLegIndexes('east-top') },
-        { ...getLegIndexes('east-bottom') },
-        { ...getLegIndexes('south-right') },
-        { ...getLegIndexes('south-left') },
-        { ...getLegIndexes('west-bottom') },
-        { ...getLegIndexes('west-top') }
+        getLegIndexes('northeast-top'),
+        getLegIndexes('southeast-top'),
+        getLegIndexes('southwest-bottom'),
+        getLegIndexes('northwest-bottom')
       ]
     },
     {
-      animation: twinkle2Animation,
+      animation: twinkleAnimation,
       isForward: false,
       twinkleIndexes: [
-        {
-          startIndex: 75,
-          endIndex: 149
-        }
+        getLegIndexes('northeast-bottom'),
+        getLegIndexes('southeast-bottom'),
+        getLegIndexes('southwest-top'),
+        getLegIndexes('northwest-top')
       ]
     }
   ]

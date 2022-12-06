@@ -1,32 +1,51 @@
+/*
+ * Description:
+ * Inner & outer: Gold and White transitions
+ 
+ */
+
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
 const getAnimation = () => {
   console.log('Pattern 5')
 
-  const animation = [
+  const twinkleAnimation = {
+    color: 0xffffff,
+    delay: 2000,
+    speed: 1000
+  }
+
+  const innerAnimation = [
     {
-      color: 0x008080,
-      length: 500,
+      color: 0xffffff,
+      length: 4000,
       ease: 'easeOutQuint'
     },
     {
-      color: 0xffc0cb,
-      length: 500,
+      color: 0xffd700,
+      length: 4000,
+      ease: 'easeOutQuint'
+    }
+  ]
+
+  const outerAnimation = [
+    {
+      color: 0xffd700,
+      length: 4000,
       ease: 'easeOutQuint'
     },
     {
-      color: 0x89cff0,
-      length: 500,
+      color: 0xffffff,
+      length: 4000,
       ease: 'easeOutQuint'
     }
   ]
 
   const ledAnimations = [
     {
-      animations: animation,
-      isBlinking: true,
-      blinkRate: 2,
+      animations: innerAnimation,
+
       bulbIndexes: [
         getLegIndexes('northeast-top'),
         getLegIndexes('northeast-bottom'),
@@ -39,9 +58,8 @@ const getAnimation = () => {
       ]
     },
     {
-      animations: animation.reverse(),
-      isBlinking: false,
-      blinkRate: 0,
+      animations: outerAnimation,
+
       bulbIndexes: [
         getLegIndexes('north-right'),
         getLegIndexes('north-left'),
@@ -55,7 +73,28 @@ const getAnimation = () => {
     }
   ]
 
-  const twinkleAnimations = []
+  const twinkleAnimations = [
+    {
+      animation: twinkleAnimation,
+      isForward: true,
+      twinkleIndexes: [
+        getLegIndexes('northeast-top'),
+        getLegIndexes('southeast-top'),
+        getLegIndexes('southwest-bottom'),
+        getLegIndexes('northwest-bottom')
+      ]
+    },
+    {
+      animation: twinkleAnimation,
+      isForward: false,
+      twinkleIndexes: [
+        getLegIndexes('northeast-bottom'),
+        getLegIndexes('southeast-bottom'),
+        getLegIndexes('southwest-top'),
+        getLegIndexes('northwest-top')
+      ]
+    }
+  ]
 
   return animateTranslate(ledAnimations, twinkleAnimations)
 }

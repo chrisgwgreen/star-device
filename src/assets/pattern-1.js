@@ -1,3 +1,9 @@
+/*
+ * Description:
+ * Inner: White inner with fade. White twinkles.
+ * Outer: Pink to yellow fade.
+ */
+
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
@@ -19,27 +25,32 @@ const getAnimation = () => {
 
   const outerAnimation = [
     {
-      color: 0xd30d0d,
+      color: 0xff0066,
       length: 5000,
       ease: 'linear'
     },
     {
-      color: 0xff0000,
+      color: 0xff3366,
       length: 5000,
       ease: 'linear'
     },
     {
-      color: 0xaacc00,
+      color: 0xff6666,
       length: 5000,
       ease: 'linear'
     },
     {
-      color: 0x55a630,
+      color: 0xff9966,
       length: 5000,
       ease: 'linear'
     },
     {
-      color: 0xffdd00,
+      color: 0xffcc66,
+      length: 5000,
+      ease: 'linear'
+    },
+    {
+      color: 0xffff66,
       length: 5000,
       ease: 'linear'
     }

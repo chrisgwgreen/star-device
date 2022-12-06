@@ -1,3 +1,8 @@
+/*
+ * Description:
+ * Inner & Outer: Beautiful rainbow pattern with a racing twinkle
+ */
+
 const getAnimation = () => {
   console.log('Pattern 4')
 
@@ -11,17 +16,17 @@ const getAnimation = () => {
       offset: index * 10,
       animations: [
         {
-          color: 0xff0000,
+          color: 0xff6060,
           length: 500,
           ease: 'linear'
         },
         {
-          color: 0xffff00,
+          color: 0xfcfc79,
           length: 500,
           ease: 'linear'
         },
         {
-          color: 0x00ff00,
+          color: 0x8bff8b,
           length: 500,
           ease: 'linear'
         },
@@ -31,12 +36,12 @@ const getAnimation = () => {
           ease: 'linear'
         },
         {
-          color: 0x0000ff,
+          color: 0x88bbff,
           length: 500,
           ease: 'linear'
         },
         {
-          color: 0xff00ff,
+          color: 0xff94ff,
           length: 500,
           ease: 'linear'
         }

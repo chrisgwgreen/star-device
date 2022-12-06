@@ -1,3 +1,8 @@
+/*
+ * Description:
+ * Inner: Pink and purple rotation
+ * Outer: Off
+ */
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
@@ -13,12 +18,12 @@ const getAnimation = () => {
 
   const animation = [
     {
-      color: 0xff0000,
+      color: 0xf44336,
       length: 6000,
       ease: 'easeOutCubic'
     },
     {
-      color: 0x9400d3,
+      color: 0x663399,
       length: 6000,
       ease: 'easeOutCubic'
     }

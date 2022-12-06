@@ -6,17 +6,12 @@ const getAnimation = () => {
 
   const animation = [
     {
-      color: 0xff0000,
+      color: 0xeeff33,
       length: 500,
       ease: 'linear'
     },
     {
-      color: 0xffff00,
-      length: 500,
-      ease: 'linear'
-    },
-    {
-      color: 0x00ff00,
+      color: 0x87ff61,
       length: 500,
       ease: 'linear'
     },
@@ -26,12 +21,12 @@ const getAnimation = () => {
       ease: 'linear'
     },
     {
-      color: 0x0000ff,
+      color: 0x6695ff,
       length: 500,
       ease: 'linear'
     },
     {
-      color: 0xff00ff,
+      color: 0xff6cff,
       length: 500,
       ease: 'linear'
     }
@@ -49,7 +44,7 @@ const getAnimation = () => {
   }
 
   const twinkle2Animation = {
-    color: 0xa90000,
+    color: 0xff5252,
     delay: 500,
     speed: 4000
   }

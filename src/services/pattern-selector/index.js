@@ -1,3 +1,8 @@
+/*
+ * Description:
+ * Inner & Outer: Vegas Pulse
+ */
+
 const { getAnimation: getPattern1Animation } = require('../../assets/pattern-1')
 const { getAnimation: getPattern2Animation } = require('../../assets/pattern-2')
 const { getAnimation: getPattern3Animation } = require('../../assets/pattern-3')
@@ -25,36 +30,40 @@ const {
 const {
   getAnimation: getPattern15Animation
 } = require('../../assets/pattern-15')
-const {
-  getAnimation: getPattern16Animation
-} = require('../../assets/pattern-16')
-const {
-  getAnimation: getPattern17Animation
-} = require('../../assets/pattern-17')
-const {
-  getAnimation: getPattern18Animation
-} = require('../../assets/pattern-18')
 
 let index = 0
 
 const animations = [
-  getPattern16Animation,
-  getPattern17Animation,
+  getPattern5Animation,
+  getPattern10Animation,
+  getPattern5Animation,
+  getPattern2Animation,
+  getPattern5Animation,
   getPattern4Animation,
   getPattern5Animation,
-  getPattern8Animation,
-  getPattern9Animation,
-  getPattern12Animation,
-  getPattern13Animation,
-  getPattern15Animation,
-  getPattern10Animation,
-  getPattern11Animation,
-  getPattern1Animation,
-  getPattern2Animation,
-  getPattern3Animation,
-  getPattern18Animation,
   getPattern6Animation,
-  getPattern7Animation
+  getPattern5Animation,
+  getPattern7Animation,
+  getPattern5Animation,
+  getPattern1Animation,
+  getPattern5Animation,
+  getPattern5Animation,
+  getPattern5Animation,
+  getPattern3Animation,
+  getPattern5Animation,
+  getPattern8Animation,
+  getPattern5Animation,
+  getPattern15Animation,
+  getPattern5Animation,
+  getPattern9Animation,
+  getPattern5Animation,
+  getPattern12Animation,
+  getPattern5Animation,
+  getPattern14Animation,
+  getPattern5Animation,
+  getPattern11Animation,
+  getPattern5Animation,
+  getPattern13Animation
 ]
 
 const getAnimation = () => {

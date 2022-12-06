@@ -1,3 +1,8 @@
+/*
+ * Description:
+ * Inner & Outer: solid white
+ */
+
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 

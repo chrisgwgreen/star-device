@@ -1,3 +1,8 @@
+/*
+ * Description:
+ * Inner & Outer: random coloured twinkles
+ */
+
 const { getLegIndexes } = require('../utils/legs')
 const { animateTranslate } = require('../utils/animate')
 
